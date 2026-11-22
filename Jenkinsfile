@@ -6,13 +6,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Timetable...'
-                sh 'test -f index.html && test -f styles.css'
+                bat 'if exist index.html (if exist styles.css (echo Files Found)) else (exit /b 1)'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'grep -q "Weekly College Timetable" index.html'
+                bat 'findstr /C:"Weekly College Timetable" index.html'
                 echo 'Tests Passed!'
             }
         }
